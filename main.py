@@ -4,28 +4,126 @@ import sys
 def load_all_stories():
     stories = {
         "horror": {
-            "characters": ["A lonely ghost", "A nervous night guard", "A lost traveler", "A creepy doll"],
-            "actions": ["heard a strange whisper", "found a mysterious old book", "ran from a dark shadow", "saw a door slam shut"],
-            "places": ["in a haunted mansion", "in an abandoned hospital", "in a foggy graveyard", "in a dark, endless forest"],
-            "climaxes": ["and was never seen again.", "but it was only a black cat.", "and woke up from the nightmare.", "and the whispering stopped."]
+            "openings": [
+                "In a ramshackle house on the edge of town",
+                "Late one night, during a violent thunderstorm",
+                "Deep within the catacombs, where light never touches",
+                "A single flickering candle lit the dusty attic"
+            ],
+            "characters": [
+                "a young historian obsessed with a local legend",
+                "a skeptical paranormal investigator",
+                "a pair of teenagers who dared each other",
+                "an old man who hadn't spoken in years"
+            ],
+            "problems": [
+                "found a locked box that seemed to whisper",
+                "realized they were not alone",
+                "saw a face in a mirror that wasn't their own",
+                "heard footsteps in the empty hall above them"
+            ],
+            "actions": [
+                "to barricade the door and hide",
+                "to try and communicate with the entity",
+                "to find the source of the noise",
+                "to run as fast as they could"
+            ],
+            "locations": [
+                "into the flooded cellar",
+                "up the rickety stairs to the forbidden room",
+                "through a secret passage behind a bookcase",
+                "out into the unnerving, silent graveyard"
+            ],
+            "climaxes": [
+                "the door burst open, and a cold wind blew out the light",
+                "they saw the final, terrifying truth and screamed",
+                "it was all just a misunderstanding caused by an old pipe",
+                "they escaped, vowing never to return"
+            ]
         },
         "comedy": {
-            "characters": ["A clumsy detective", "A talking squirrel", "A chef who hates food", "A robot trying to be human"],
-            "actions": ["slipped on a banana peel", "tried to bake a cake", "wore two different shoes", "accidentally joined a circus"],
-            "places": ["at a fancy party", "in the middle of a supermarket", "on live TV", "during a very serious meeting"],
-            "climaxes": ["and everyone burst out laughing.", "but ended up with a pie on their face.", "and accidentally became famous.", "and realized it was all a dream."]
+            "openings": [
+                "It was a Tuesday, the most boring day, until",
+                "At the annual 'Most Serious Person' competition",
+                "In a kitchen full of angry, sentient vegetables",
+                "The day the entire town's Wi-Fi was replaced by a single kazoo"
+            ],
+            "characters": [
+                "a very confused penguin who thought he was a lawyer",
+                "a grandma who was secretly a pro-wrestler",
+                "a talking cat with a terrible sense of humor",
+                "a knight who was afraid of butterflies"
+            ],
+            "problems": [
+                "was suddenly put in charge of a runaway hot dog stand",
+                "had to explain why there was a goat on the roof",
+                "accidentally swapped briefcases with a birthday clown",
+                "was mistaken for a famous pop star"
+            ],
+            "actions": [
+                "to improvise a song and dance",
+                "to disguise themselves as a potted plant",
+                "to blame the talking cat for everything",
+                "to simply nod and pretend they knew what was happening"
+            ],
+            "locations": [
+                "right into the middle of a live news broadcast",
+                "to a high-stakes bingo game",
+                "to an elevator filled with opera singers",
+                "all the way to a very confused dog park"
+            ],
+            "climaxes": [
+                "they somehow won the competition and a lifetime supply of glitter",
+                "the goat was given the key to the city",
+                "it all turned out to be a reality TV show",
+                "they just decided to take a nap right there"
+            ]
         },
         "adventure": {
-            "characters": ["A brave knight", "A clever explorer", "A pirate with a secret map", "A young wizard"],
-            "actions": ["discovered a hidden cave", "climbed the tallest mountain", "sailed across the stormy sea", "outsmarted a dragon"],
-            "places": ["to find a lost treasure", "in a jungle full of strange creatures", "on a floating island", "deep within a volcano"],
-            "climaxes": ["and found the legendary Golden Pineapple.", "and saved the day.", "and returned home a hero.", "and began a new journey."]
+            "openings": [
+                "On the coast of a forgotten island",
+                "In a city built on the clouds",
+                "A weathered map was found in an old library book",
+                "The oldest tree in the forest began to speak"
+            ],
+            "characters": [
+                "a daring pilot with a rusty airship",
+                "a young scholar who could read ancient runes",
+                "a grumpy warrior looking for one last quest",
+                "a nimble thief with a heart of gold"
+            ],
+            "problems": [
+                "was given a quest by a mysterious old wizard",
+                "discovered that a powerful artifact was stolen",
+                "heard rumors of a lost city made of crystal",
+                "had to rescue a friend from a rival explorer"
+            ],
+            "actions": [
+                "to charter a ship and face the storm",
+                "to decode the ancient map",
+                "to sneak into the fortress of the Sky Pirates",
+                "to journey through the Whispering Desert"
+            ],
+            "locations": [
+                "to the peak of the shaking volcano",
+                "deep into the Sunken Temple",
+                "across the great chasm on a rope bridge",
+                "aboard a giant, friendly turtle"
+            ],
+            "climaxes": [
+                "they found the treasure and shared it with the people",
+                "they defeated the villain in a clever duel",
+                "the map led to a beautiful, hidden waterfall",
+                "they made it home just in time for dinner"
+            ]
         }
     }
     return stories
 
 def show_menu():
-    print("\n--- Random Story Generator ---")
+    print("\n==================================")
+    print("--- Random Story Generator ---")
+    print("==================================")
     print("What kind of story do you want?")
     print("1. Horror")
     print("2. Comedy")
@@ -34,16 +132,28 @@ def show_menu():
 
 def generate_story(category, story_db):
     try:
-        category_parts = story_db[category]
+        parts = story_db[category]
 
-        character = random.choice(category_parts["characters"])
-        action = random.choice(category_parts["actions"])
-        location = random.choice(category_parts["places"])
-        ending = random.choice(category_parts["climaxes"])
+        opening = random.choice(parts["openings"])
+        character = random.choice(parts["characters"])
+        problem = random.choice(parts["problems"])
+        action = random.choice(parts["actions"])
+        location = random.choice(parts["locations"])
+        ending = random.choice(parts["climaxes"])
         
-        story = f"\nOnce upon a time... {character} {action} {location} {ending}"
+        print("\n...Generating your story...")
+        print("--------------------------------------------------")
+        
+        story = (
+            f"{opening}, {character} {problem}. "
+            f"They decided {action}, which led them {location}. "
+            f"In the end, {ending}."
+        )
         
         print(story)
+        print("--------------------------------------------------")
+        
+        input("\n[Press Enter to return to the menu]...")
         
     except KeyError:
         print(f"Error: Story category '{category}' not found.")
