@@ -1,5 +1,6 @@
 import random
 import sys
+import time
 
 def load_all_stories():
     stories = {
@@ -128,29 +129,50 @@ def show_menu():
     print("1. Horror")
     print("2. Comedy")
     print("3. Adventure")
-    print("4. Exit")
+    print("4. Chaos Mode (Mix everything!)")
+    print("5. Exit")
+
+def get_random_part(story_db, part_type):
+    """Helper function to get a random part from a random category."""
+    random_category = random.choice(list(story_db.keys()))
+    return random.choice(story_db[random_category][part_type])
 
 def generate_story(category, story_db):
     try:
-        parts = story_db[category]
+        print() # Add a little space
+        character_name = input("Enter a name for your main character: ")
+        if not character_name:
+            character_name = "Alex" # A default name if user just hits Enter
 
-        opening = random.choice(parts["openings"])
-        character = random.choice(parts["characters"])
-        problem = random.choice(parts["problems"])
-        action = random.choice(parts["actions"])
-        location = random.choice(parts["locations"])
-        ending = random.choice(parts["climaxes"])
-        
         print("\n...Generating your story...")
+        time.sleep(1) # Pause for effect
+
+        if category == "chaos":
+            opening = get_random_part(story_db, "openings")
+            char_title = get_random_part(story_db, "characters")
+            problem = get_random_part(story_db, "problems")
+            action = get_random_part(story_db, "actions")
+            location = get_random_part(story_db, "locations")
+            ending = get_random_part(story_db, "climaxes")
+        else:
+            parts = story_db[category]
+            opening = random.choice(parts["openings"])
+            char_title = random.choice(parts["characters"])
+            problem = random.choice(parts["problems"])
+            action = random.choice(parts["actions"])
+            location = random.choice(parts["locations"])
+            ending = random.choice(parts["climaxes"])
+        
         print("--------------------------------------------------")
         
-        story = (
-            f"{opening}, {character} {problem}. "
-            f"They decided {action}, which led them {location}. "
-            f"In the end, {ending}."
-        )
+        # Print the story piece by piece
+        print(f"{opening}, {char_title} named {character_name} {problem}.")
+        time.sleep(2) # Pause for 2 seconds
         
-        print(story)
+        print(f"They decided {action}, which led them {location}.")
+        time.sleep(2) # Pause for 2 seconds
+        
+        print(f"In the end, {ending}.")
         print("--------------------------------------------------")
         
         input("\n[Press Enter to return to the menu]...")
@@ -165,7 +187,7 @@ def main():
     
     while True:
         show_menu()
-        choice = input("Enter your choice (1-4): ")
+        choice = input("Enter your choice (1-5): ")
         
         if choice == '1':
             generate_story("horror", all_stories)
@@ -173,11 +195,13 @@ def main():
             generate_story("comedy", all_stories)
         elif choice == '3':
             generate_story("adventure", all_stories)
-        elif choice == '4':
+        elif choice == '4.':
+            generate_story("chaos", all_stories)
+        elif choice == '5':
             print("Goodbye!")
             sys.exit(0)
         else:
-            print("Invalid choice. Please enter a number between 1 and 4.")
+            print("Invalid choice. Please enter a number between 1 and 5.")
 
 if __name__ == "__main__":
     main()
